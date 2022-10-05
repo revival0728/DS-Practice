@@ -19,6 +19,7 @@ namespace myc
             void insert(const std::size_t, T);
             void erase(const std::size_t);
             T& operator[](const std::size_t);
+            T& at(const std::size_t);
             std::size_t size();
     };
 }

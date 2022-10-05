@@ -1,5 +1,5 @@
 #include "linked_list.h"
-#include <cassert>
+#include <stdexcept>
 
 using namespace myc;
 
@@ -18,8 +18,9 @@ template<class T> void linked_list<T>::insert(const std::size_t index, T _val) {
     linked_list<T>::list_node *tmp = this->front, *que = nullptr;
     for(std::size_t i = 0; i < index; ++i) {
         tmp = tmp->next;
+        if(tmp == nullptr)
+            throw std::out_of_range("myc::linked_list: index out of range");
     }
-    assert(tmp != nullptr);
     if(tmp->next == nullptr)
         tmp->next = new linked_list<T>::list_node(nullptr, _val);
     else
@@ -29,6 +30,8 @@ template<class T> void linked_list<T>::erase(const std::size_t index) {
     linked_list<T>::list_node *tmp = this->front, *erased = this->front;
     for(std::size_t i = 0; i < index; ++i) {
         tmp = tmp->next;
+        if(tmp == nullptr)
+            throw std::out_of_range("myc::linked_list: index out of range");
     }
     erased = tmp->next;
     tmp->next = erased->next;
@@ -38,6 +41,16 @@ template<class T> T& linked_list<T>::operator[](const std::size_t index) {
     linked_list<T>::list_node *tmp = this->front;
     for(std::size_t i = 0; i < index; ++i) {
         tmp = tmp->next;
+    }
+    tmp = tmp->next;
+    return (tmp->value);
+}
+template<class T> T& linked_list<T>::at(const std::size_t index) {
+    linked_list<T>::list_node *tmp = this->front;
+    for(std::size_t i = 0; i < index; ++i) {
+        tmp = tmp->next;
+        if(tmp == nullptr)
+            throw std::out_of_range("myc::linked_list: index out of range");
     }
     tmp = tmp->next;
     return (tmp->value);
