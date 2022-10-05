@@ -1,1 +1,1 @@
-g++ ./main.cpp ./linked_list.cpp -o main.o
+g++ -g ./main.cpp -o main.o
